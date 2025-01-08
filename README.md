@@ -134,3 +134,70 @@ constraint fk_tbl_estoque_tbl_fornecedor
 foreign key (id_produto)
 references sys_promocao.tbl_fornecedor(id_fornecedor)
 );
+
+use sys_promocao;
+select*from tbl_cliente;
+show tables;
+delete from tbl_compra
+where id_compra = 3;
+
+insert into tbl_cliente (nome_cliente,rg_cliente,data_nascimento,e_mail) 
+value ('Leticia Aparecida','123453336','01-02-2020','leticia@gmail.com');
+
+select*from tbl_produto;
+insert into tbl_produto (nome_produto,quantidade_estoque,codigo,valor_compra,valor_venda,categoria) 
+value ('chocolate Milka','1000','3','5','15','Doces');
+
+select*from tbl_fornecedor;
+insert into tbl_fornecedor (nome_fornecedor,nome_representante,logradouro,cep,bairro,cidade,estado,pais) 
+value ('mondeles internacional','Evandro Castro','Av Luis Carlos Berrini','12343-210','Broklin','São Paulo','São Paulo','Brasil');   
+
+select*from tbl_compra;
+insert into tbl_compra (data_compras,total_compras,credito,pix,debito,dinheiro,id_cliente,id_Produto)
+value ('1998-03-11',5,0,0,20,0,1,3);
+
+select*from tbl_endereco;
+insert into tbl_endereco (cep, logradouro, bairro, cidade, estado, pais, id_cliente)
+value('22334-999', 'AV. Carlos Lacerda','Campo Limpo','Pelotas','Rio Grande do Sul','Brasil',5);
+
+select * from tbl_vendas;
+insert into tbl_vendas (total_de_vendas, data_vendas, total_credito, total_pix, total_debito, total_dinheiro, quantidade, preco, departamento, id_produto)
+values(3,'2020-07-17',0,0,100,0,5,10,'bebida',1);
+
+use sys_promocao;
+select * from tbl_produto;
+select * from tbl_vendas;
+select * from tbl_cliente;
+select * from tbl_colaborador;
+select * from tbl_compra;
+
+#Atualiza valores de uma tabela (não esquecer de colocar o critário de busca, pode ser o id)
+update tbl_colaborador set nome = 'Ricardo Souza' 
+where id_coladorador = 1;
+
+#Ordenação de conteudo, crescente e decrescente, podendo ser por nome ou conteudo
+select * from tbl_produto order by nome_produto asc;
+select * from tbl_produto order by quantidade_estoque desc;
+select * from tbl_produto order by quantidade_estoque asc;
+
+#filtrando dados com critérios utilizando o peradores lógicos 
+select * from tbl_produto where quantidade_estoque > 100;
+select * from tbl_produto where quantidade_estoque <= 1000 and valor_compra > 2;
+
+#filtrando dados com criterios utilizando operadores logicos (and, or,not)
+select * from tbl_produto where quantidade_estoque <= 3000 and valor_compra < 50;
+
+select * from tbl_produto where nome_produto = 'arroz';
+
+
+select * from tbl_produto where nome_produto like 'arroz'; #igualdade
+select * from tbl_produto where nome_produto like 'arroz%';# lista produtos que iniciam com a palavra
+select * from tbl_produto where nome_produto like '%arroz';#lista produtos que terminam com a palavra
+select * from tbl_produto where nome_produto like '%arroz%';# lista produtos que contenha a palavra em qualquer posição
+
+SELECT tbl_cliente.nome_cliente, tbl_compra.data_compras, tbl_compra.total_compras, tbl_produto.nome_produto
+FROM tbl_cliente
+INNER JOIN tbl_compra
+  ON tbl_cliente.id_cliente = tbl_compra.id_cliente
+INNER JOIN tbl_produto
+  ON tbl_compra.id_produto = tbl_produto.id_produto;
